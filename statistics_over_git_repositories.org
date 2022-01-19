@@ -1,23 +1,21 @@
 #+TITLE: Statistics over Git Repositories
 
-* Statistics over Git Repositories
-
 Get the revision list.
 
 #+BEGIN_SRC bash
-git rev-list HEAD
+  git rev-list HEAD
 #+END_SRC
 
 Notice that the commits are in order of newest to oldest.
 
 #+BEGIN_SRC bash
-git log -1
+  git log -1
 #+END_SRC
 
 Reverse the rev list.
 
 #+BEGIN_SRC bash
-git rev-list --reverse HEAD
+  git rev-list --reverse HEAD
 #+END_SRC
 
 Now listing oldest to newest.
@@ -25,16 +23,16 @@ Now listing oldest to newest.
 We need to loop to get information and print things:
 
 #+BEGIN_SRC bash
-git rev-list --reverse HEAD | while read rev; do git log -1 $rev; done
+  git rev-list --reverse HEAD | while read rev; do git log -1 $rev; done
 #+END_SRC
 
 This command duplicates the output of =git log=.
 
 #+BEGIN_SRC bash
-git rev-list --reverse HEAD | while read rev; do git ls-tree $rev; done
-git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree $rev; done
-git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev; done
-git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}'; done
+  git rev-list --reverse HEAD | while read rev; do git ls-tree $rev; done
+  git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree $rev; done
+  git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev; done
+  git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}'; done
 #+END_SRC
 
 =awk= is a very complex tool that is really useful for grabbing fields out of text.
@@ -43,19 +41,83 @@ git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tre
 We need to be able to grab hashes to pass as arguments. We will do this with =xargs=.
 
 #+BEGIN_SRC bash
-echo '1
-2
-3'
+  echo '1
+  2
+  3'
 
-echo '1
-2
-3' | xargs
+  echo '1
+  2
+  3' | xargs
 #+END_SRC
 
 This solves the problem of mapping stdout to arguments.
 
 #+BEGIN_SRC bash
-echo '1
-2
-3' | xargs ls
+  echo '1
+  2
+  3' | xargs ls
+#+END_SRC
+
+#+BEGIN_SRC bash
+  git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}' | xargs git show | cat; done
+  git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}' | xargs git show | cat; done | view -
+#+END_SRC
+
+Pipe to =cat= because otherwise =git= will page the output.
+
+Pipe the whole thing to =view=, which is a view-only vim.
+Or we could use =less=.
+
+**Note:**
+
+#+BEGIN_QUOTE
+Here we are performing a command, piping it into a control structure,
+and then piping it into another command.
+
+Control structures have a stdin and stdout, just like anything else.
+#+END_QUOTE
+
+Starting from that and removing the output commands to pipe it into another command.
+Use it to count the number of lines.
+
+#+BEGIN_SRC bash
+  git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}' | xargs git show; done
+  git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}' | xargs git show | wc -l; done
+#+END_SRC
+
+To fix the log output, but that will involve a lot of =M-b=.
+This is a smell that you need a script instead of a one-liner.
+
+**Turn into a script**
+
+#+BEGIN_SRC bash
+  touch stats.sh
+  chmod u+x stats.sh
+#+END_SRC
+
+=**stats.sh**=
+
+Copy command into the script. Add a shebang.
+
+#+BEGIN_SRC bash
+#!/bin/bash
+
+git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}' | xargs git show | wc -l; done
+#+END_SRC
+
+Add error flag and break the command up into separate lines.
+
+#+BEGIN_SRC bash
+#!/bin/bash
+set -e # If any command in the script fails, then abort the rest of the script.
+
+git rev-list --reverse HEAD |
+while read rev; do
+    echo
+    echo REV $rev
+    git ls-tree -r $rev |
+    awk '{print $3}' |
+    xargs git show |
+    wc -l
+done
 #+END_SRC

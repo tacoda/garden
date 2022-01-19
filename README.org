@@ -1,5 +1,3 @@
 #+TITLE: Destroy All Software
 
-* Destroy All Software
-
-** [[file:statistics_over_git_repositories.org][Statistics over Git Repositories]]
+* [[file:statistics_over_git_repositories.org][Statistics over Git Repositories]]
