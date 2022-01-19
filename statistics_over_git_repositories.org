@@ -68,7 +68,7 @@ Pipe to =cat= because otherwise =git= will page the output.
 Pipe the whole thing to =view=, which is a view-only vim.
 Or we could use =less=.
 
-**Note:**
+*Note:*
 
 #+BEGIN_QUOTE
 Here we are performing a command, piping it into a control structure,
@@ -88,14 +88,14 @@ Use it to count the number of lines.
 To fix the log output, but that will involve a lot of =M-b=.
 This is a smell that you need a script instead of a one-liner.
 
-**Turn into a script**
+*Turn into a script*
 
 #+BEGIN_SRC bash
   touch stats.sh
   chmod u+x stats.sh
 #+END_SRC
 
-=**stats.sh**=
+=stats.sh=
 
 Copy command into the script. Add a shebang.
 
