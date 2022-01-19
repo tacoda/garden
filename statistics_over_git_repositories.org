@@ -1,0 +1,61 @@
+#+TITLE: Statistics over Git Repositories
+
+* Statistics over Git Repositories
+
+Get the revision list.
+
+#+BEGIN_SRC bash
+git rev-list HEAD
+#+END_SRC
+
+Notice that the commits are in order of newest to oldest.
+
+#+BEGIN_SRC bash
+git log -1
+#+END_SRC
+
+Reverse the rev list.
+
+#+BEGIN_SRC bash
+git rev-list --reverse HEAD
+#+END_SRC
+
+Now listing oldest to newest.
+
+We need to loop to get information and print things:
+
+#+BEGIN_SRC bash
+git rev-list --reverse HEAD | while read rev; do git log -1 $rev; done
+#+END_SRC
+
+This command duplicates the output of =git log=.
+
+#+BEGIN_SRC bash
+git rev-list --reverse HEAD | while read rev; do git ls-tree $rev; done
+git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree $rev; done
+git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev; done
+git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}'; done
+#+END_SRC
+
+=awk= is a very complex tool that is really useful for grabbing fields out of text.
+
+=git show= with a file blob will show the contents of that file as of that revision.
+We need to be able to grab hashes to pass as arguments. We will do this with =xargs=.
+
+#+BEGIN_SRC bash
+echo '1
+2
+3'
+
+echo '1
+2
+3' | xargs
+#+END_SRC
+
+This solves the problem of mapping stdout to arguments.
+
+#+BEGIN_SRC bash
+echo '1
+2
+3' | xargs ls
+#+END_SRC
