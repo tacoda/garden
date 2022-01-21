@@ -3,19 +3,19 @@ Statistics over Git Repositories
 
 Get the revision list.
 
-..code: bash
+.. code: bash
 
    git rev-list HEAD
 
 Notice that the commits are in order of newest to oldest.
 
-..code: bash
+.. code: bash
 
    git log -1
 
 Reverse the rev list.
 
-..code: bash
+.. code: bash
 
    git rev-list --reverse HEAD
 
@@ -23,13 +23,13 @@ Now listing oldest to newest.
 
 We need to loop to get information and print things:
 
-..code: bash
+.. code: bash
 
    git rev-list --reverse HEAD | while read rev; do git log -1 $rev; done
 
 This command duplicates the output of ``git log``.
 
-..code: bash
+.. code: bash
 
    git rev-list --reverse HEAD | while read rev; do git ls-tree $rev; done
    git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree $rev; done
@@ -41,7 +41,7 @@ This command duplicates the output of ``git log``.
 ``git show`` with a file blob will show the contents of that file as of that revision.
 We need to be able to grab hashes to pass as arguments. We will do this with =xargs=.
 
-..code: bash
+.. code: bash
 
    echo '1
    2
@@ -53,13 +53,13 @@ We need to be able to grab hashes to pass as arguments. We will do this with =xa
 
 This solves the problem of mapping stdout to arguments.
 
-..code: bash
+.. code: bash
 
    echo '1
    2
    3' | xargs ls
 
-..code: bash
+.. code: bash
 
    git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}' | xargs git show | cat; done
    git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}' | xargs git show | cat; done | view -
@@ -71,7 +71,7 @@ Or we could use ``less``.
 
 **Note:**
 
-..epigraph:
+.. epigraph:
 
    Here we are performing a command, piping it into a control structure,
    and then piping it into another command.
@@ -81,7 +81,7 @@ Or we could use ``less``.
 Starting from that and removing the output commands to pipe it into another command.
 Use it to count the number of lines.
 
-..code: bash
+.. code: bash
 
    git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}' | xargs git show; done
    git rev-list --reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk '{print $3}' | xargs git show | wc -l; done
@@ -91,7 +91,7 @@ This is a smell that you need a script instead of a one-liner.
 
 *Turn into a script*
 
-..code: bash
+.. code: bash
 
    touch stats.sh
    chmod u+x stats.sh
@@ -100,7 +100,7 @@ This is a smell that you need a script instead of a one-liner.
 
 Copy command into the script. Add a shebang.
 
-..code: bash
+.. code: bash
 
    #!/bin/bash
 
@@ -108,7 +108,7 @@ Copy command into the script. Add a shebang.
 
 Add error flag and break the command up into separate lines.
 
-..code: bash
+.. code: bash
 
    #!/bin/bash
    set -e # If any command in the script fails, then abort the rest of the script.
