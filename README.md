@@ -26,5 +26,3 @@ make clean html
 ```sh
 http-server _build/html/
 ```
-
-Small change to trigger rebuild
