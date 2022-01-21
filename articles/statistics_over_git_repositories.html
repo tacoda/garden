@@ -1,208 +1,155 @@
-
 <!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Statistics over Git Repositories &#8212; DAS  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Welcome to DAS’s documentation!" href="../index.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2D2D2D" />
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
+  <title>DAS :: Statistics over Git Repositories</title>
   
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <link rel="icon" type="image/png" sizes="32x32" href="../_static/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../_static/img/favicon-16x16.png">
+  <link rel="index" title="Index" href="../genindex.html"/>
+
+  <link rel="stylesheet" href="../_static/css/insegel.css"/>
+  <link rel="stylesheet" href="../_static/css/custom.css"/>
+
+  <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+  
+
+  <script src="https://email.tl.fortawesome.com/c/eJxNjUEOgyAQAF8jR7Kw6wIHDh7sP1Cw2mgxgmn6-3JsMqc5zEQfE8dkxOY1KKMUOI3ACFKRJpSW2AAp7ontYIaxI6i7XPJVwyeVfCQ550Os3jLrGSNOLgbdAy6s0PBk2TFNjEbsfq31LB0OnX407pJa5v2faRadwSW63mn5KuLyR9j2tgx3zecanl-55R_-jjPs"></script> 
+</head>
+
+<body>
+  <div id="insegel-container">
+    <header>
+      <div id="logo-container">
           
+          <h1>DAS</h1>
+          
+      </div>
+      <div id="project-container">
+        
+        <h1>Documentation</h1>
+        
+      </div>
+    </header>
 
-          <div class="body" role="main">
-            
+    <div id="content-container">
+
+      <div id="main-content-container">
+        <div id="main-content" role="main">
+          
   <section id="statistics-over-git-repositories">
 <h1>Statistics over Git Repositories<a class="headerlink" href="#statistics-over-git-repositories" title="Permalink to this headline">¶</a></h1>
 <p>Get the revision list.</p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>git rev-list HEAD</p>
-</div></blockquote>
 <p>Notice that the commits are in order of newest to oldest.</p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>git log -1</p>
-</div></blockquote>
 <p>Reverse the rev list.</p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>git rev-list –reverse HEAD</p>
-</div></blockquote>
 <p>Now listing oldest to newest.</p>
 <p>We need to loop to get information and print things:</p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>git rev-list –reverse HEAD | while read rev; do git log -1 $rev; done</p>
-</div></blockquote>
 <p>This command duplicates the output of <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code>.</p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>git rev-list –reverse HEAD | while read rev; do git ls-tree $rev; done
-git rev-list –reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree $rev; done
-git rev-list –reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev; done
-git rev-list –reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk ‘{print $3}’; done</p>
-</div></blockquote>
 <p><code class="docutils literal notranslate"><span class="pre">awk</span></code> is a very complex tool that is really useful for grabbing fields out of text.</p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">show</span></code> with a file blob will show the contents of that file as of that revision.
 We need to be able to grab hashes to pass as arguments. We will do this with =xargs=.</p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>echo ‘1
-2
-3’</p>
-<p>echo ‘1
-2
-3’ | xargs</p>
-</div></blockquote>
 <p>This solves the problem of mapping stdout to arguments.</p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>echo ‘1
-2
-3’ | xargs ls</p>
-</div></blockquote>
-<p>..code: bash</p>
-<blockquote>
-<div><p>git rev-list –reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk ‘{print $3}’ | xargs git show | cat; done
-git rev-list –reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk ‘{print $3}’ | xargs git show | cat; done | view -</p>
-</div></blockquote>
 <p>Pipe to <code class="docutils literal notranslate"><span class="pre">cat</span></code> because otherwise <code class="docutils literal notranslate"><span class="pre">git</span></code> will page the output.</p>
 <p>Pipe the whole thing to <code class="docutils literal notranslate"><span class="pre">view</span></code>, which is a view-only vim.
 Or we could use <code class="docutils literal notranslate"><span class="pre">less</span></code>.</p>
 <p><strong>Note:</strong></p>
-<p>..epigraph:</p>
-<blockquote>
-<div><p>Here we are performing a command, piping it into a control structure,
-and then piping it into another command.</p>
-<p>Control structures have a stdin and stdout, just like anything else.</p>
-</div></blockquote>
 <p>Starting from that and removing the output commands to pipe it into another command.
 Use it to count the number of lines.</p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>git rev-list –reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk ‘{print $3}’ | xargs git show; done
-git rev-list –reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk ‘{print $3}’ | xargs git show | wc -l; done</p>
-</div></blockquote>
 <p>To fix the log output, but that will involve a lot of =M-b=.
 This is a smell that you need a script instead of a one-liner.</p>
 <p><em>Turn into a script</em></p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>touch stats.sh
-chmod u+x stats.sh</p>
-</div></blockquote>
 <p><code class="docutils literal notranslate"><span class="pre">stats.sh</span></code></p>
 <p>Copy command into the script. Add a shebang.</p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>#!/bin/bash</p>
-<p>git rev-list –reverse HEAD | while read rev; do echo; echo REV $rev; git ls-tree -r $rev | awk ‘{print $3}’ | xargs git show | wc -l; done</p>
-</div></blockquote>
 <p>Add error flag and break the command up into separate lines.</p>
-<p>..code: bash</p>
-<blockquote>
-<div><p>#!/bin/bash
-set -e # If any command in the script fails, then abort the rest of the script.</p>
-<p>git rev-list –reverse HEAD |
-while read rev; do
-echo
-echo REV $rev
-git ls-tree -r $rev |
-awk ‘{print $3}’ |
-xargs git show |
-wc -l
-done</p>
-</div></blockquote>
 <p>New change.</p>
 </section>
 
 
-          </div>
-          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">DAS</a></h1>
 
+      <div id="side-menu-container">
 
+        <div id="search" role="search">
+        <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+            <input type="text" name="q" placeholder="Search..." />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+        </form>
+</div>
 
+        <div id="side-menu" role="navigation">
 
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+          
+  
+    
+  
+  
+    <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Statistics over Git Repositories</a></li>
 </ul>
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to DAS’s documentation!</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
+  
 
 
         </div>
+
+        
+
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2022, Ian Johnson.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="../_sources/articles/statistics_over_git_repositories.rst.txt"
-          rel="nofollow">Page source</a>
+
     </div>
 
-    
+<footer>
+    <div id="footer-info">
+        <ul id="build-details">
+            
+                <li class="footer-element">
+                    
+                        <a href="../_sources/articles/statistics_over_git_repositories.rst.txt" rel="nofollow"> source</a>
+                    
+                </li>
+            
 
-    
-  </body>
+            
+
+            
+        </ul>
+
+        
+            <div id="copyright">
+                &copy; 2022, Ian Johnson
+            </div>
+        
+
+        <div id="credit">
+            created with <a href="http://sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/Autophagy/insegel">Insegel</a>
+
+        </div>
+    </div>
+
+    <a id="menu-toggle" class="fa fa-bars" aria-hidden="true"></a>
+
+    <script type="text/javascript">
+      $("#menu-toggle").click(function() {
+        $("#menu-toggle").toggleClass("toggled");
+        $("#side-menu-container").slideToggle(300);
+      });
+    </script>
+
+</footer> 
+
+</div>
+
+</body>
 </html>
