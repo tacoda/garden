@@ -4,7 +4,7 @@
 
 ## Usage
 
-Goal: CI via GitHub action for pdf, html, epub. (and maybe others)
+View this site on [GitHub pages](https://tacoda.github.io/das/).
 
 ## Developing
 
@@ -18,7 +18,7 @@ echo 'export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"' >> $HOME/.zshrc
 **Build html docs:**
 
 ```sh
-make html
+make clean html
 ```
 
 **Serve the html site:**
