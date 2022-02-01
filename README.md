@@ -1,10 +1,10 @@
-# Destroy All Software
+# Dev Notes
 
 > This is a sphinx application for notes related to programming.
 
 ## Usage
 
-View this site on [GitHub pages](https://tacoda.github.io/das/).
+View this site on [GitHub pages](https://tacoda.github.io/dev/).
 
 ## Developing
 
