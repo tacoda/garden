@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'DAS'
+project = 'Dev'
 copyright = '2022, Ian Johnson'
 author = 'Ian Johnson'
 
