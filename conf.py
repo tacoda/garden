@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Dev'
+project = 'KB'
 copyright = '2022, Ian Johnson'
 author = 'Ian Johnson'
 
