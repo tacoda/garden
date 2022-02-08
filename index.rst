@@ -8,8 +8,14 @@ Knowledge Base
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Articles:
    :glob:
 
    articles/*
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Books:
+   :glob:
+
    books/*

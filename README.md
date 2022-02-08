@@ -1,4 +1,4 @@
-# Dev Notes
+# Knowledge Base
 
 > This is a sphinx application for notes related to programming.
 
@@ -6,7 +6,7 @@
 
 View this site on [GitHub pages](https://tacoda.github.io/kb/).
 
-## Developing
+## Local
 
 **Dependencies:**
 
