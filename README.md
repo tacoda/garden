@@ -4,7 +4,7 @@
 
 ## Usage
 
-View this site on [GitHub pages](https://tacoda.github.io/dev/).
+View this site on [GitHub pages](https://tacoda.github.io/kb/).
 
 ## Developing
 
