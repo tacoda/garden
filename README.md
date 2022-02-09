@@ -1,10 +1,10 @@
-# Knowledge Base
+# Digital Garden
 
 > This is a sphinx application for notes related to programming.
 
 ## Usage
 
-View this site on [GitHub pages](https://tacoda.github.io/kb/).
+View this site on [GitHub pages](https://tacoda.github.io/garden/).
 
 ## Local
 
