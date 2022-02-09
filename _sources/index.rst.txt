@@ -15,6 +15,13 @@ Knowledge Base
 
 .. toctree::
    :maxdepth: 2
+   :caption: AppSec:
+   :glob:
+
+   appsec/*
+
+.. toctree::
+   :maxdepth: 2
    :caption: Books:
    :glob:
 

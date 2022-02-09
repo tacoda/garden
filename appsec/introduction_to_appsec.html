@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="AppSec Resources" href="../appsec/appsec_resources.html" /><link rel="prev" title="Knowledge Base" href="../index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Nice and OWASP" href="nice_and_owasp.html" /><link rel="prev" title="AppSec Resources" href="appsec_resources.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>Statistics over Git Repositories - KB documentation</title>
+        <title>Introduction to AppSec - KB documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -155,16 +155,16 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Articles:</span></p>
-<ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Statistics over Git Repositories</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../articles/statistics_over_git_repositories.html">Statistics over Git Repositories</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">AppSec:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../appsec/appsec_resources.html">AppSec Resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appsec/introduction_to_appsec.html">Introduction to AppSec</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appsec/nice_and_owasp.html">Nice and OWASP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appsec/sast_and_code_review.html">SAST and Code Review for SecDevOps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appsec/security_by_design_principles.html">Security by Design Principles</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="appsec_resources.html">AppSec Resources</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Introduction to AppSec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nice_and_owasp.html">Nice and OWASP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sast_and_code_review.html">SAST and Code Review for SecDevOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security_by_design_principles.html">Security by Design Principles</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Books:</span></p>
 <ul>
@@ -189,37 +189,99 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="statistics-over-git-repositories">
-<h1>Statistics over Git Repositories<a class="headerlink" href="#statistics-over-git-repositories" title="Permalink to this headline">¶</a></h1>
-<p>Get the revision list.</p>
-<p>Notice that the commits are in order of newest to oldest.</p>
-<p>Reverse the rev list.</p>
-<p>Now listing oldest to newest.</p>
-<p>We need to loop to get information and print things:</p>
-<p>This command duplicates the output of <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">awk</span></code> is a very complex tool that is really useful for grabbing fields out of text.</p>
-<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">show</span></code> with a file blob will show the contents of that file as of that revision.
-We need to be able to grab hashes to pass as arguments. We will do this with =xargs=.</p>
-<p>This solves the problem of mapping stdout to arguments.</p>
-<p>Pipe to <code class="docutils literal notranslate"><span class="pre">cat</span></code> because otherwise <code class="docutils literal notranslate"><span class="pre">git</span></code> will page the output.</p>
-<p>Pipe the whole thing to <code class="docutils literal notranslate"><span class="pre">view</span></code>, which is a view-only vim.
-Or we could use <code class="docutils literal notranslate"><span class="pre">less</span></code>.</p>
-<p><strong>Note:</strong></p>
-<p>Starting from that and removing the output commands to pipe it into another command.
-Use it to count the number of lines.</p>
-<p>To fix the log output, but that will involve a lot of =M-b=.
-This is a smell that you need a script instead of a one-liner.</p>
-<p><em>Turn into a script</em></p>
-<p><code class="docutils literal notranslate"><span class="pre">stats.sh</span></code></p>
-<p>Copy command into the script. Add a shebang.</p>
-<p>Add error flag and break the command up into separate lines.</p>
-<p>New change.</p>
+          <section id="introduction-to-appsec">
+<h1>Introduction to AppSec<a class="headerlink" href="#introduction-to-appsec" title="Permalink to this headline">¶</a></h1>
+<section id="critical-concepts-of-application-security">
+<h2>Critical Concepts of Application Security<a class="headerlink" href="#critical-concepts-of-application-security" title="Permalink to this headline">¶</a></h2>
+<section id="establishing-a-baseline-with-asvs">
+<h3>Establishing a Baseline with ASVS<a class="headerlink" href="#establishing-a-baseline-with-asvs" title="Permalink to this headline">¶</a></h3>
+<p>OWASP ASVS Objectives:</p>
+<ul class="simple">
+<li><p>To provide us with a measurement on how much trust we can place in our web application’s security</p></li>
+<li><p>To provide guidance as to what we should build into our security controls to satisfy security requirements</p></li>
+<li><p>To provide a standard for application security verification requirements in contracts with third parties</p></li>
+</ul>
+<p>OWASP ASVS is a catalog of security requirements and verification data.</p>
+<p>Different levels of ASVS for different data sets, and how much trust should be placed in them.</p>
+<p>Recommendation is the applications should be at least level 1. Start with level 1 and then iterate on top of that to get to the other levels.
+Businesses should aim for level 2, especially for business-critical areas. Level 3 is for when a breach would significantly impact your
+organization’s operations and/or survival.</p>
+</section>
+<section id="establishing-a-baseline-with-samm">
+<h3>Establishing a Baseline with SAMM<a class="headerlink" href="#establishing-a-baseline-with-samm" title="Permalink to this headline">¶</a></h3>
+<p>SAMM stands for Software Assurance Maturity Model.</p>
+<p>Provides a self-assessment model. Technology and process agnostic.</p>
+<ol class="arabic simple">
+<li><p>Measurable</p></li>
+<li><p>Actionable</p></li>
+<li><p>Versatile</p></li>
+</ol>
+<p>Great tool for finding and organization’s security stance in order to improve it.</p>
+<p>SAMM Model Overview</p>
+<p>Available online or as a pdf.</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 19%"/>
+<col style="width: 19%"/>
+<col style="width: 15%"/>
+<col style="width: 25%"/>
+<col style="width: 22%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Governance</p></th>
+<th class="head"><p>Design</p></th>
+<th class="head"><p>Implementation</p></th>
+<th class="head"><p>Verification</p></th>
+<th class="head"><p>Operations</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Strategy &amp; Metrics</p></td>
+<td><p>Threat Assessment</p></td>
+<td><p>Secure Build</p></td>
+<td><p>Architecture Assessment</p></td>
+<td><p>Incident Management</p></td>
+</tr>
+<tr class="row-odd"><td><p>Policy &amp; Compliance</p></td>
+<td><p>Security Requirements</p></td>
+<td><p>Secure Deployment</p></td>
+<td><p>Requirements-driven Testing</p></td>
+<td><p>Environment Management</p></td>
+</tr>
+<tr class="row-even"><td><p>Education &amp; Guidance</p></td>
+<td><p>Security Architecture</p></td>
+<td><p>Defect Management</p></td>
+<td><p>Security Testing</p></td>
+<td><p>Operational Management</p></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section id="a-practical-approach-to-application-security">
+<h3>A Practical Approach to Application Security<a class="headerlink" href="#a-practical-approach-to-application-security" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="application-security-risks-and-threat-modeling">
+<h3>Application Security Risks and Threat Modeling<a class="headerlink" href="#application-security-risks-and-threat-modeling" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="web-application-security">
+<h2>Web Application Security<a class="headerlink" href="#web-application-security" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="mobile-application-security">
+<h2>Mobile Application Security<a class="headerlink" href="#mobile-application-security" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="application-security-in-the-cloud">
+<h2>Application Security in the Cloud<a class="headerlink" href="#application-security-in-the-cloud" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="application-security-testing">
+<h2>Application Security Testing<a class="headerlink" href="#application-security-testing" title="Permalink to this headline">¶</a></h2>
+</section>
 </section>
 
         </article>
@@ -227,23 +289,23 @@ This is a smell that you need a script instead of a one-liner.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../appsec/appsec_resources.html">
+          <a class="next-page" href="nice_and_owasp.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">AppSec Resources</div>
+                <div class="title">Nice and OWASP</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../index.html">
+          <a class="prev-page" href="appsec_resources.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Home</div>
+                <div class="title">AppSec Resources</div>
                 
               </div>
             </a>
@@ -253,7 +315,7 @@ This is a smell that you need a script instead of a one-liner.</p>
               Copyright &#169; 2022, Ian Johnson |
           Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
           <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
-            | <a class="muted-link" href="../_sources/articles/statistics_over_git_repositories.rst.txt"
+            | <a class="muted-link" href="../_sources/appsec/introduction_to_appsec.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -261,8 +323,37 @@ This is a smell that you need a script instead of a one-liner.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Introduction to AppSec</a><ul>
+<li><a class="reference internal" href="#critical-concepts-of-application-security">Critical Concepts of Application Security</a><ul>
+<li><a class="reference internal" href="#establishing-a-baseline-with-asvs">Establishing a Baseline with ASVS</a></li>
+<li><a class="reference internal" href="#establishing-a-baseline-with-samm">Establishing a Baseline with SAMM</a></li>
+<li><a class="reference internal" href="#a-practical-approach-to-application-security">A Practical Approach to Application Security</a></li>
+<li><a class="reference internal" href="#application-security-risks-and-threat-modeling">Application Security Risks and Threat Modeling</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#web-application-security">Web Application Security</a></li>
+<li><a class="reference internal" href="#mobile-application-security">Mobile Application Security</a></li>
+<li><a class="reference internal" href="#application-security-in-the-cloud">Application Security in the Cloud</a></li>
+<li><a class="reference internal" href="#application-security-testing">Application Security Testing</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

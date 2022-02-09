@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="AppSec Resources" href="../appsec/appsec_resources.html" /><link rel="prev" title="Knowledge Base" href="../index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Introduction to AppSec" href="introduction_to_appsec.html" /><link rel="prev" title="Statistics over Git Repositories" href="../articles/statistics_over_git_repositories.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.01.02"/>
-        <title>Statistics over Git Repositories - KB documentation</title>
+        <title>AppSec Resources - KB documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=df49af52631e7917044a9c21a57f7b83170a6dd0" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=fade93df149f7c5fedb3ff897f799dc7d283b420" />
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -155,16 +155,16 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Articles:</span></p>
-<ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Statistics over Git Repositories</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../articles/statistics_over_git_repositories.html">Statistics over Git Repositories</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">AppSec:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../appsec/appsec_resources.html">AppSec Resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appsec/introduction_to_appsec.html">Introduction to AppSec</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appsec/nice_and_owasp.html">Nice and OWASP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appsec/sast_and_code_review.html">SAST and Code Review for SecDevOps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appsec/security_by_design_principles.html">Security by Design Principles</a></li>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">AppSec Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_to_appsec.html">Introduction to AppSec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nice_and_owasp.html">Nice and OWASP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sast_and_code_review.html">SAST and Code Review for SecDevOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security_by_design_principles.html">Security by Design Principles</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Books:</span></p>
 <ul>
@@ -189,37 +189,81 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="statistics-over-git-repositories">
-<h1>Statistics over Git Repositories<a class="headerlink" href="#statistics-over-git-repositories" title="Permalink to this headline">¶</a></h1>
-<p>Get the revision list.</p>
-<p>Notice that the commits are in order of newest to oldest.</p>
-<p>Reverse the rev list.</p>
-<p>Now listing oldest to newest.</p>
-<p>We need to loop to get information and print things:</p>
-<p>This command duplicates the output of <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">awk</span></code> is a very complex tool that is really useful for grabbing fields out of text.</p>
-<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">show</span></code> with a file blob will show the contents of that file as of that revision.
-We need to be able to grab hashes to pass as arguments. We will do this with =xargs=.</p>
-<p>This solves the problem of mapping stdout to arguments.</p>
-<p>Pipe to <code class="docutils literal notranslate"><span class="pre">cat</span></code> because otherwise <code class="docutils literal notranslate"><span class="pre">git</span></code> will page the output.</p>
-<p>Pipe the whole thing to <code class="docutils literal notranslate"><span class="pre">view</span></code>, which is a view-only vim.
-Or we could use <code class="docutils literal notranslate"><span class="pre">less</span></code>.</p>
-<p><strong>Note:</strong></p>
-<p>Starting from that and removing the output commands to pipe it into another command.
-Use it to count the number of lines.</p>
-<p>To fix the log output, but that will involve a lot of =M-b=.
-This is a smell that you need a script instead of a one-liner.</p>
-<p><em>Turn into a script</em></p>
-<p><code class="docutils literal notranslate"><span class="pre">stats.sh</span></code></p>
-<p>Copy command into the script. Add a shebang.</p>
-<p>Add error flag and break the command up into separate lines.</p>
-<p>New change.</p>
+          <section id="appsec-resources">
+<h1>AppSec Resources<a class="headerlink" href="#appsec-resources" title="Permalink to this headline">¶</a></h1>
+<section id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h2>
+<p>Where to find the latest vulnerbilities and security news:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.exploit-db.com/">ExploitDB</a></p></li>
+<li><p><a class="reference external" href="https://thehackernews.com/">HackerNews</a></p></li>
+<li><p><a class="reference external" href="https://cve.mitre.org/">CVE Mitre</a></p></li>
+</ul>
+<p>How to test and provide secure code review:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.owasp.org/index.php/OWASP_Testing_Project">OWASP Testing Guide</a></p></li>
+<li><p><a class="reference external" href="https://www.owasp.org/index.php/OWASP_Proactive_Controls">OWASP Proactive Controls</a></p></li>
+<li><p><a class="reference external" href="https://www.owasp.org/index.php/Ruby_on_Rails_Cheatsheet">OWASP Rails Cheatsheet</a></p></li>
+<li><p><a class="reference external" href="https://www.owasp.org/index.php/OWASP_Top_10_Privacy_Risks_Project">OWASP Top 10 Privacy Risks</a></p></li>
+<li><p><a class="reference external" href="https://www.owasp.org/index.php/Category:OWASP_Code_Review_Project">OWASP Code Review Guide</a></p></li>
+</ul>
+<p>Ruby on Rails specific resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://speakerdeck.com/presidentbeef/the-evolution-of-rails-security">The Evolution of Rails Security</a></p></li>
+<li><p><a class="reference external" href="http://guides.rubyonrails.org/security.html">Rails Security Guide</a></p></li>
+<li><p><a class="reference external" href="https://blog.engineyard.com/ruby-on-rails-security-checklist">Engine Yard Security Checklist</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ankane/secure_rails">Secure Rails</a></p></li>
+</ul>
+</section>
+<section id="tools">
+<h2>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://brakemanscanner.org/">Brakeman</a></p></li>
+<li><p><a class="reference external" href="https://github.com/bbatsov/rubocop">RuboCop</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rubysec/bundler-audit">Bundler Audit</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nccgroup/sobelow">Sobelow</a></p></li>
+<li><p><a class="reference external" href="https://hex.pm/docs/tasks#hex_outdated">hex.outdated</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rrrene/credo">credo</a></p></li>
+<li><p><a class="reference external" href="https://portswigger.net/burp">Burp Suite</a></p></li>
+<li><p><a class="reference external" href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">OWASP Zed Attack Proxy</a></p></li>
+<li><p><a class="reference external" href="https://nmap.org/">nMap</a></p></li>
+</ul>
+</section>
+<section id="talks-and-videos">
+<h2>Talks and Videos<a class="headerlink" href="#talks-and-videos" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=AFOlxqQCTxs">The World of Rails Security</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=UOTH8A0svW8">Developers Care and Feeding</a></p></li>
+<li><p><a class="reference external" href="https://devchat.tv/ruby-rogues/219-rr-brakeman-and-rails-security-with-justin-collins">Brakeman and Rails Security</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=3JPBqu68Iqg">Defending against Data Breaches</a></p></li>
+</ul>
+</section>
+<section id="conferences">
+<h2>Conferences<a class="headerlink" href="#conferences" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.defcon.org/index.html">Defcon</a></p></li>
+<li><p><a class="reference external" href="https://www.blackhat.com/">Black Hat</a></p></li>
+<li><p><a class="reference external" href="https://toorcon.net/">Toorcon</a></p></li>
+<li><p><a class="reference external" href="https://www.bsideslv.org">BSides</a></p></li>
+</ul>
+</section>
+<section id="certifications">
+<h2>Certifications<a class="headerlink" href="#certifications" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.isc2.org/Certifications/CISSP">CISSP</a> - Certified Information Systems Security Professional</p></li>
+<li><p><a class="reference external" href="https://www.isc2.org/Certifications/CSSLP">CSSLP</a> - Secure Software Development</p></li>
+<li><p><a class="reference external" href="https://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/">OSCP</a> - Offensive Security Certified Professional</p></li>
+<li><p><a class="reference external" href="https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/">CEH</a> - Certified Ethical Hacker</p></li>
+<li><p><a class="reference external" href="https://www.isc2.org/Certifications/HCISPP">HCISPP</a> - Healthcare Information Security and Privacy Practitioner</p></li>
+<li><p><a class="reference external" href="https://www.giac.org/certification/security-essentials-gsec">GSEC</a> - GIAC Security Essentials</p></li>
+</ul>
+</section>
 </section>
 
         </article>
@@ -227,23 +271,23 @@ This is a smell that you need a script instead of a one-liner.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../appsec/appsec_resources.html">
+          <a class="next-page" href="introduction_to_appsec.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">AppSec Resources</div>
+                <div class="title">Introduction to AppSec</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../index.html">
+          <a class="prev-page" href="../articles/statistics_over_git_repositories.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Home</div>
+                <div class="title">Statistics over Git Repositories</div>
                 
               </div>
             </a>
@@ -253,7 +297,7 @@ This is a smell that you need a script instead of a one-liner.</p>
               Copyright &#169; 2022, Ian Johnson |
           Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
           <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
-            | <a class="muted-link" href="../_sources/articles/statistics_over_git_repositories.rst.txt"
+            | <a class="muted-link" href="../_sources/appsec/appsec_resources.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -261,8 +305,31 @@ This is a smell that you need a script instead of a one-liner.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">AppSec Resources</a><ul>
+<li><a class="reference internal" href="#resources">Resources</a></li>
+<li><a class="reference internal" href="#tools">Tools</a></li>
+<li><a class="reference internal" href="#talks-and-videos">Talks and Videos</a></li>
+<li><a class="reference internal" href="#conferences">Conferences</a></li>
+<li><a class="reference internal" href="#certifications">Certifications</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
