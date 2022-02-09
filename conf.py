@@ -17,7 +17,8 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'KB'
+project = 'Digital Garden'
+html_title = 'Digital Garden'
 copyright = '2022, Ian Johnson'
 author = 'Ian Johnson'
 
