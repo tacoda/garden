@@ -1,37 +1,37 @@
-Digital Garden
-==============
+Ian's Digital Garden
+====================
 
 .. toctree::
    :maxdepth: 1
-   :caption: Articles:
+   :caption: Articles
    :glob:
 
    articles/*
 
 .. toctree::
    :maxdepth: 1
-   :caption: AppSec:
+   :caption: AppSec
    :glob:
 
    appsec/*
 
 .. toctree::
    :maxdepth: 1
-   :caption: Books:
+   :caption: Books
    :glob:
 
    books/*
 
 .. toctree::
    :maxdepth: 1
-   :caption: Languages:
+   :caption: Languages
    :glob:
 
    lang/*
 
 .. toctree::
    :maxdepth: 1
-   :caption: Tools:
+   :caption: Tools
    :glob:
 
    tools/*

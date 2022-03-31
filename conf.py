@@ -17,8 +17,8 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Digital Garden'
-html_title = 'Digital Garden'
+project = 'Ian\'s Digital Garden'
+html_title = 'Ian\'s Digital Garden'
 copyright = '2022, Ian Johnson'
 author = 'Ian Johnson'
 
